@@ -1,0 +1,342 @@
+<template>
+	<section class="container">
+		<div>
+			<app-logo />
+			<h1 class="title">crypto-box</h1>
+			<!-- <h2 class="subtitle">Truffle box for Nuxt.js development</h2> -->
+			<div>
+				<nuxt-link to="/truc"> Nuxt Link (Store persistence) </nuxt-link>
+			</div>
+			<h2 class="paragraph-title">Configuration</h2>
+
+			<div class="row">
+				<button @click="test">Test</button>
+			</div>
+			<h2 class="paragraph-title">Mint TST TOKEN</h2>
+			<div class="row">
+				<div class="row">
+					Mint Address:
+					<input v-model="mintRecipientAddress" title="mintRecipientAddress" />
+					Mint token Amount:
+					<input v-model="mintTokenAmount" title="minTokenAmount" />
+				</div>
+				<div class="row">
+					<button @click="mintToken">Mint Token</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="row">
+					Payout Ratio:
+					<input v-model="transientPayoutRatio" title="payoutRatio" />
+				</div>
+				<div class="row">
+					<button @click="setPayoutRatio">Set Payout Ratio</button>
+					<span style="margin-left: 10px">{{ payoutRatio }}</span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="row">
+					Initial Asset Price:
+					<input
+						v-model="transientInitialPrice"
+						title="transientInitialPrice"
+					/>
+				</div>
+				<div class="row">
+					<button @click="setInitialPrice">Set Initial Price</button>
+					<span style="margin-left: 10px">{{ initialPrice }}</span>
+				</div>
+			</div>
+			<div>
+				Strike Price: {{ strikePrice }}
+				<vue-slider v-model="transientStrikePrice"></vue-slider>
+				<button @click="setStrikePrice">Set Strike Price</button>
+			</div>
+			<div class="row">
+				<div class="row">
+					Add Maturity minutes:
+					<input v-model="additionalMaturityMinute" title="maturity" />
+				</div>
+				<div class="row">
+					<button @click="addMaturity">Add Maturity</button>
+					<span style="margin-left: 10px">{{ maturityDate }}</span>
+				</div>
+				<div class="row">
+					<button @click="switchContractLock">Switch Contract Lock</button>
+					<span style="margin-left: 10px">{{ locked }}</span>
+				</div>
+			</div>
+
+			<h2 class="paragraph-title">Contract Interactions</h2>
+
+			<div class="row">
+				<div class="row">
+					Authorized Token Symbol:
+					<input v-model="addedTokenSymbol" title="symbol" />
+					Authorized Token Address:
+					<input v-model="addedTokenAddress" title="address" />
+				</div>
+				<div class="row">
+					<button @click="addToken">Add New Token</button>
+				</div>
+			</div>
+			<div class="row">
+				to Approved Address:
+				<input v-model="toApprovedAddress" title="toApprovedAddress" />
+				Amount of tokens Approved
+				<input v-model="tokenApprovedAmount" title="tokenApprovedAmount" />
+				<button @click="approveAddress">
+					Approve {{ tokenApprovedAmount }} tokens
+				</button>
+			</div>
+			<div>
+				<h3 class="paragraph-title">Add Liquidity (Admin)</h3>
+				<div class="row">
+					Token Symbol: <input v-model="tokenSymbol" title="Recipent" />
+				</div>
+				<div class="row">
+					Liquidity Amount:
+					<input v-model="liquidityAmount" title="liquidityAmount" />
+				</div>
+				<div class="row">
+					<button @click="addLiquidity">Send Liquidity</button>
+				</div>
+				<div class="receipt-box">
+					Total Liquidity:
+					<span style="color: green">{{ totalLiquidity }}</span>
+				</div>
+			</div>
+			<div>
+				<h3 class="paragraph-title">Add Collateral (Client)</h3>
+				<div class="row">
+					Token Symbol: <input v-model="tokenSymbol" title="Recipent" />
+				</div>
+				<div class="row">
+					Collateral Amount:
+					<input v-model="collateralAmount" title="collateralAmount" />
+				</div>
+				<div class="row">
+					<button @click="addCollateral">Send Collateral</button>
+				</div>
+				<div class="receipt-box">
+					Total Collateral:
+					<span style="color: green">{{ totalCollateral }}</span>
+				</div>
+			</div>
+			<h3 class="paragraph-title">SETTLEMENT</h3>
+			<div class="row">
+				<button @click="settle">Settle</button>
+			</div>
+			<div class="receipt-box">
+				Settle Result:
+				<span style="color: green">{{ settleResult }}</span>
+			</div>
+		</div>
+	</section>
+</template>
+
+<script>
+import AppLogo from '~/components/AppLogo.vue'
+//import VueSlider from 'vue-slider-component'
+//import 'vue-slider-component/theme/antd.css'
+
+import VueSlider from 'vue-slider-component/dist-css/vue-slider-component.umd.min.js'
+import 'vue-slider-component/dist-css/vue-slider-component.css'
+
+// import theme
+import 'vue-slider-component/theme/default.css'
+
+import web3 from '~/plugins/web3'
+
+export default {
+	components: {
+		AppLogo,
+		VueSlider,
+	},
+	data() {
+		return {
+			userAddress: '',
+			payoutRatio: 0,
+			transientPayoutRatio: 0,
+			initialPrice: 0,
+			transientInitialPrice: 0,
+			strikePrice: 0,
+			transientStrikePrice: 0,
+			additionalMaturityMinute: 0,
+			maturityDate: 0,
+			locked: false,
+			addressShares: 0,
+			transientAddressShares: 0,
+			addedTokenSymbol: 'TST',
+			addedTokenAddress: '',
+			toApprovedAddress: '',
+			tokenApprovedAmount: 0,
+			totalLiquidity: 0,
+			liquidityAmount: 0,
+			totalCollateral: 0,
+			collateralAmount: 0,
+			tokenSymbol: 'TST',
+			amount: 0,
+			recipientAddress: '',
+			mintRecipientAddress: '',
+			mintTokenAmount: '',
+			settleResult: '',
+		}
+	},
+	computed: {
+		btcPrice: {
+			get: function () {
+				return this.$store.state.btcPrice
+			},
+			set(val) {
+				this.$store.commit('setBtcPrice', val)
+			},
+		},
+	},
+	mounted() {
+		web3.eth.getAccounts().then((result) => {
+			this.userAddress = result[0]
+		})
+		/*var account = web3.eth.accounts[0];
+		setInterval(function () {
+  			if (web3.eth.accounts[0] !== account) {
+    			account = web3.eth.accounts[0];
+    			updateInterface();
+  			}
+		}, 100);*/
+	},
+	methods: {
+		/*
+		async transferToken() {
+			await this.$store.dispatch('marex/tokenTransfer', {
+				from: this.myAddress,
+				to: this.recipientAddress,
+				symbol: this.TokenSym,
+				value: '00001',
+			})
+		},*/
+		async test() {},
+		async setPayoutRatio() {
+			this.payoutRatio = await this.$store.dispatch('marex/setPayoutRatio', {
+				from: this.userAddress,
+				transientPayoutRatio: this.transientPayoutRatio,
+			})
+		},
+		async setStrikePrice() {
+			this.strikePrice = await this.$store.dispatch('marex/setStrikePrice', {
+				from: this.userAddress,
+				transientStrikePrice: this.transientStrikePrice,
+			})
+		},
+		async setInitialPrice() {
+			this.initialPrice = await this.$store.dispatch('marex/setInitialPrice', {
+				from: this.userAddress,
+				transientInitialPrice: this.transientInitialPrice,
+			})
+		},
+		async addMaturity() {
+			this.maturityDate = await this.$store.dispatch('marex/addMaturity', {
+				from: this.userAddress,
+				additionalMaturityMinute: this.additionalMaturityMinute,
+			})
+		},
+		async switchContractLock() {
+			this.locked = await this.$store.dispatch('marex/switchContractLock', {
+				from: this.userAddress,
+			})
+		},
+		async getAddressShares() {
+			this.addressShares = await this.$store.dispatch('marex/getAdressShares', {
+				from: this.userAddress,
+				addressShares: this.transientaddressShares,
+			})
+		},
+		async addToken() {
+			await this.$store.dispatch('marex/addToken', {
+				from: this.userAddress,
+				addedTokenSymbol: this.addedTokenSymbol,
+				addedTokenAddress: this.addedTokenAddress,
+			})
+		},
+		async mintToken() {
+			await this.$store.dispatch('marex/mintToken', {
+				from: this.userAddress,
+				mintRecipientAddress: this.mintRecipientAddress,
+				mintTokenAmount: this.mintTokenAmount,
+			})
+		},
+		async approveAddress() {
+			await this.$store.dispatch('marex/approve', {
+				from: this.userAddress,
+				toApproveAddress: this.approveAddress,
+				tokenApprovedAmount: this.tokenApprovedAmount,
+			})
+		},
+		async addLiquidity() {
+			this.totalLiquidity = await this.$store.dispatch('marex/addLiquidity', {
+				from: this.userAddress,
+				liquidityAmount: this.liquidityAmount,
+				tokenSymbol: this.tokenSymbol,
+			})
+		},
+		async addCollateral() {
+			this.totalCollateral = await this.$store.dispatch('marex/addCollateral', {
+				from: this.userAddress,
+				collateralAmount: this.collateralAmount,
+				tokenSymbol: this.tokenSymbol,
+			})
+		},
+		async settle() {
+			this.settleResult = await this.$store.dispatch('marex/settle', {
+				from: this.userAddress,
+			})
+		},
+	},
+}
+</script>
+
+<style>
+.container {
+	min-height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+
+.title {
+	font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
+		'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; /* 1 */
+	display: block;
+	font-weight: 300;
+	font-size: 100px;
+	color: #35495e;
+	letter-spacing: 1px;
+}
+
+.subtitle {
+	font-weight: 300;
+	font-size: 42px;
+	color: #526488;
+	word-spacing: 5px;
+	padding-bottom: 15px;
+}
+
+.paragraph-title {
+	font-weight: 300;
+	font-size: 20px;
+	color: #35495e;
+	word-spacing: 5px;
+	padding: 15px 0;
+}
+
+.receipt-box {
+	padding-top: 15px;
+	width: 900px;
+	word-break: break-all;
+}
+
+.row {
+	padding: 10px;
+}
+</style>
