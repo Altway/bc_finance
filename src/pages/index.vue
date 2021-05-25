@@ -38,13 +38,13 @@
 				<div class="row">
 					Initial Asset Price:
 					<input
-						v-model="transientInitialPrice"
-						title="transientInitialPrice"
+						v-model="transientInitialFixing"
+						title="transientInitialFixing"
 					/>
 				</div>
 				<div class="row">
-					<button @click="setInitialPrice">Set Initial Price</button>
-					<span style="margin-left: 10px">{{ initialPrice }}</span>
+					<button @click="setInitialFixing">Set Initial Price</button>
+					<span style="margin-left: 10px">{{ initialFixing }}</span>
 				</div>
 			</div>
 			<div>
@@ -107,20 +107,20 @@
 				</div>
 			</div>
 			<div>
-				<h3 class="paragraph-title">Add Collateral (Client)</h3>
+				<h3 class="paragraph-title">Add Notional (Client)</h3>
 				<div class="row">
 					Token Symbol: <input v-model="tokenSymbol" title="Recipent" />
 				</div>
 				<div class="row">
-					Collateral Amount:
-					<input v-model="collateralAmount" title="collateralAmount" />
+					Notional Amount:
+					<input v-model="notionalAmount" title="collateralAmount" />
 				</div>
 				<div class="row">
-					<button @click="addCollateral">Send Collateral</button>
+					<button @click="addNotional">Send Collateral</button>
 				</div>
 				<div class="receipt-box">
-					Total Collateral:
-					<span style="color: green">{{ totalCollateral }}</span>
+					Total Notional:
+					<span style="color: green">{{ totalNotional }}</span>
 				</div>
 			</div>
 			<h3 class="paragraph-title">SETTLEMENT</h3>
@@ -158,8 +158,8 @@ export default {
 			userAddress: '',
 			payoutRatio: 0,
 			transientPayoutRatio: 0,
-			initialPrice: 0,
-			transientInitialPrice: 0,
+			initialFixing: 0,
+			transientInitialFixing: 0,
 			strikePrice: 0,
 			transientStrikePrice: 0,
 			additionalMaturityMinute: 0,
@@ -173,8 +173,8 @@ export default {
 			tokenApprovedAmount: 0,
 			totalLiquidity: 0,
 			liquidityAmount: 0,
-			totalCollateral: 0,
-			collateralAmount: 0,
+			totalNotional: 0,
+			notionalAmount: 0,
 			tokenSymbol: 'TST',
 			amount: 0,
 			recipientAddress: '',
@@ -228,11 +228,14 @@ export default {
 				transientStrikePrice: this.transientStrikePrice,
 			})
 		},
-		async setInitialPrice() {
-			this.initialPrice = await this.$store.dispatch('marex/setInitialPrice', {
-				from: this.userAddress,
-				transientInitialPrice: this.transientInitialPrice,
-			})
+		async setInitialFixing() {
+			this.initialFixing = await this.$store.dispatch(
+				'marex/setInitialFixing',
+				{
+					from: this.userAddress,
+					transientInitialFixing: this.transientInitialPrice,
+				}
+			)
 		},
 		async addMaturity() {
 			this.maturityDate = await this.$store.dispatch('marex/addMaturity', {
@@ -279,10 +282,10 @@ export default {
 				tokenSymbol: this.tokenSymbol,
 			})
 		},
-		async addCollateral() {
-			this.totalCollateral = await this.$store.dispatch('marex/addCollateral', {
+		async addNotional() {
+			this.totalNotional = await this.$store.dispatch('marex/addCollateral', {
 				from: this.userAddress,
-				collateralAmount: this.collateralAmount,
+				notionalAmount: this.collateralAmount,
 				tokenSymbol: this.tokenSymbol,
 			})
 		},

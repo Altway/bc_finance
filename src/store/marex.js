@@ -136,11 +136,11 @@ export const actions = {
 			.send({ from: params.from })
 		return marex.methods.strikePrice().call()
 	},
-	async setInitialPrice(context, params) {
+	async setInitialFixing(context, params) {
 		await marex.methods
-			.setInitialPrice(params.transientInitialPrice)
+			.setInitialFixing(params.transientInitialPrice)
 			.send({ from: params.from })
-		return marex.methods.initialPrice().call()
+		return marex.methods.initialFixing().call()
 	},
 	async addMaturity(context, params) {
 		await marex.methods
@@ -168,9 +168,9 @@ export const actions = {
 			.approve(MarexAddress, params.tokenApprovedAmount)
 			.send({ from: params.from })
 	},
-	async addCollateral(context, params) {
+	async addNotional(context, params) {
 		await marex.methods
-			.addCollateral(params.tokenSymbol, params.collateralAmount)
+			.addNotional(params.tokenSymbol, params.notionalAmount)
 			.send({
 				from: params.from,
 			})

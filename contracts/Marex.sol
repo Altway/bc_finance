@@ -5,11 +5,9 @@ SPDX-License-Identifier: MIT
 */
 pragma solidity >=0.8.0;
 
-// import "./finance/OptionsExchange.sol";
 // import "./deployment/ManagedContract.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-
 
 
 // contract Marex is ManagedContract {
@@ -23,7 +21,7 @@ contract Marex {
 
     // payoutRatio de 10%
     uint public payoutRatio = 10;
-    uint public initialPrice = 30;
+    uint public initialFixing = 30;
     uint public strikePrice = 0;
 
     // Active le contract aujourd'hui
@@ -36,9 +34,16 @@ contract Marex {
     // Liquidité maximum du provider
     uint public maximumLiquidity = 10000;
     // Liquidité maximum du sender à payoutRatio * liquidité du provider
-    uint public maximumSender = maximumLiquidity * payoutRatio;
+    uint public maximumNotional = maximumLiquidity * payoutRatio;
 
-    uint public maximumPayout = maximumLiquidity + maximumSender;
+    uint public maximumRedemption = maximumLiquidity + maximumNotional;
+
+    // Number of shares required to withdrawn before the maturity has been reached
+    uint public earlyRedemptionSharesNumber = 10;
+
+    // For multiple liquidity providers
+    // uint public maximumDenomination = maximumLiquidity + maximumNotional;
+    // uint public maximumIssuanceSize = maximumDenomination + maximumNotional;
 
     bool public investorLock = false;
     bool public liquidityProviderLock = false;
@@ -47,7 +52,6 @@ contract Marex {
     address[] public whitelistedInvestor;
     address[] public whitelistedLiquidityProvider;
 
-    mapping (address => bool) public senderList;
     // mapping address => fond
     uint _totalHolders; // you should initialize this to 0 in the constructor
     mapping (uint => address payable) public holders;
@@ -67,17 +71,17 @@ contract Marex {
     event LogS(string event_string);
     event MaturityEnd(uint event_uint, uint event_block);
 
-/*
+    /*
     function initialize(Deployer deployer) override internal {
         // exchange = OptionsExchange(deployer.getContractAddress("OptionsExchange"));
     }
-*/
+    */
 
     function setPayoutRatio(uint payout_ratio) public {
         payoutRatio = payout_ratio;
     }
     function setInitialPrice(uint initial_price) public {
-        initialPrice = initial_price;
+        initialFixing = initial_price;
     }
     function setStrikePrice(uint strike_price) public {
         strikePrice = strike_price;
@@ -85,9 +89,11 @@ contract Marex {
     function addMaturity(uint maturity_minute) public {
         maturityDate = maturityDate + ( maturity_minute * 60);
     }
-
     function setMaximumLiquidity(uint maximum_liquidity) public {
         maximumLiquidity = maximum_liquidity;
+    }
+    function setEarlyRedemptionSharesNumber(uint shares_number) public {
+        earlyRedemptionSharesNumber = shares_number;
     }
 
     function switchLock() public {
@@ -95,36 +101,28 @@ contract Marex {
         else{locked = true;}
     }
 
-
-/*
-    function approve(string memory symbol_, address address_, uint value) public {
-        address contract_ = authorizedTokens[symbol_];
-        ERC20Interface =  ERC20(contract_);
-        ERC20Interface.approve(address_, value);
-        // ERC20Interface.approve(address(0xCD50Fcc572DB2Cf8056aa76Cb0b26812696E353c), value);
-        //ee.approve(address(exchange), msg.value);
-        emit Log(address(contract_));
-    }
-*/
-    /**
-    * @dev add address of token to list of supported tokens using
-    * token symbol as identifier in mapping
-    */
     function addNewToken(string memory symbol_, address address_) public returns (bool) {
         authorizedTokens[symbol_] = address_;
         return true;
     }
 
+    function payout(uint finalFixing, uint notional) public view returns(uint) {
+        if (finalFixing >= strikePrice) {
+            return maximumRedemption;
+        }
+        return notional * (finalFixing / initialFixing) + maximumLiquidity;
+
+    }
+
     function transferTokens(string memory symbol_, address to_, uint256 amount_) public {
         //require(tokens[symbol_] != address(0));
         //require(amount_ > 0);
-
         address contract_ = authorizedTokens[symbol_];
         address from_ = msg.sender;
 
         ERC20Interface =  ERC20(contract_);
-
-     /*   transactions.push(
+        /*
+        transactions.push(
             Transfer({
             contract_:  contract_,
             to_: to_,
@@ -139,11 +137,9 @@ contract Marex {
             emit TransferFailed(from_, to_, amount_);
             revert();
         }
-*/
+        */
         ERC20Interface.transferFrom(from_, to_, amount_);
-
         //transactions[transactionId - 1].failed_ = false;
-
         //emit TransferSuccessful(from_, to_, amount_);
     }
 
@@ -173,28 +169,85 @@ contract Marex {
         //emit Test(msg.value);
     }
 
-    function addCollateral(string memory symbol_, uint collateralAmount) public {
+    function addNotional(string memory symbol_, uint notionalAmount) public {
         // require(shares[msg.sender] + msg.value <= maximumsender, "You can't send that much money");
         // require(whitelistedLiquidityProvider[msg.sender], "You are not authorized to deposit);
         // require(msg.value > 3, "You can't send that much money");
         // Test if we reach maximumLiquidity
-
-
         address contract_ = authorizedTokens[symbol_];
         ERC20Interface =  ERC20(contract_);
         
         uint previousBalance = ERC20Interface.balanceOf(address(this));
-
-        ERC20Interface.transferFrom(msg.sender, address(this), collateralAmount);
-        
+        ERC20Interface.transferFrom(msg.sender, address(this), notionalAmount);
         uint currentBalance = ERC20Interface.balanceOf(address(this));
-
-        if (currentBalance == previousBalance + collateralAmount) {
-            shares[msg.sender] += collateralAmount;
+        if (currentBalance == previousBalance + notionalAmount) {
+            shares[msg.sender] += notionalAmount;
         }
 
         // Emit that an liquidity provider sent money
         //emit Test(msg.value);
+    }
+    function settle() public {
+        address contract_ = authorizedTokens["TST"];
+        ERC20Interface =  ERC20(contract_);
+        // Are we reached maturity ?
+        require(block.timestamp >= maturityDate, "Maturity date not reached yet");
+        // Do both participant send their maximum amount ?
+        require(
+            ERC20Interface.balanceOf(address(this)) == maximumRedemption && 
+            shares[msg.sender] == maximumNotional, 
+            "Maximum payout not reached"
+        );
+
+        // Check oracle price
+        uint oraclePrice = strikePrice;
+        uint notional = shares[msg.sender];
+
+        // Compute payout function ratio on all shares
+        // uint participantShares = shares[msg.sender];
+        uint settleAmount = payout(oraclePrice, notional);
+
+        // Check if sum of all balances is okay compared to fund locked in the contract
+        // and be sure that debt are cleansed and balance ajusted
+
+        // Send back payout
+        ERC20Interface.transfer(msg.sender, settleAmount);
+
+        shares[msg.sender] = 0;
+        
+        // Emit the event 
+        emit Fric(settleAmount, "Send money back");
+
+
+        /*
+        // Use the PayoutRatio Function
+        if (settleAmount > 0) {
+            shares[msg.sender] -= settleAmount;
+            if(senderList[msg.sender]) {
+                holders[_totalHolders] = address(0);
+                senderList[msg.sender] = false;
+                _totalHolders--;
+            }
+        }
+        msg.sender.transfer(settleAmount);
+
+        */
+        // exchange.withdrawTokens(settleAmount);
+    }
+
+
+    function withdraw(uint lpTokenAmount) public {
+        // Depending on the number of LP tokens sent
+        uint withdrawAmount;
+        uint currentShares = shares[msg.sender];
+
+        uint currentSharesNumber = currentShares + lpTokenAmount;
+
+        require(currentSharesNumber >= earlyRedemptionSharesNumber, "You don't have enough shares to withdraw");
+
+        shares[msg.sender] -= lpTokenAmount;
+
+        ERC20Interface.transfer(msg.sender, withdrawAmount);
     }
 /*
     function associateLiquidity(string memory symbol_) public payable {
@@ -253,49 +306,6 @@ contract Marex {
         emit Test(msg.value);
     }
 */
-    function settle() public {
-        // Check maturity requirements
-        // require(block.timestamp >= maturityDate, "This is not the right time");
-        // require(shares[msg.sender] > 0, "Participant balance is 0");
-        // require(!locked, "This Contract is still locked");
-
-        // Check oracle price
-        uint oraclePrice = strikePrice;
-
-        // Compute payout function ratio on all shares
-        // uint participantShares = shares[msg.sender];
-        uint settleAmount = payout(oraclePrice);
-
-        // Check if sum of all balances is okay compared to fund locked in the contract
-        // and be sure that debt are cleansed and balance ajusted
-
-        // Send back payout
-        address contract_ = authorizedTokens["TST"];
-        ERC20Interface =  ERC20(contract_);
-        ERC20Interface.transfer(msg.sender, settleAmount);
-
-        shares[msg.sender] = 0;
-        
-        // Emit the event 
-        emit Fric(settleAmount, "Send money back");
-
-
-        /*
-        // Use the PayoutRatio Function
-        if (settleAmount > 0) {
-            shares[msg.sender] -= settleAmount;
-            if(senderList[msg.sender]) {
-                holders[_totalHolders] = address(0);
-                senderList[msg.sender] = false;
-                _totalHolders--;
-            }
-        }
-        msg.sender.transfer(settleAmount);
-
-        */
-        // exchange.withdrawTokens(settleAmount);
-    }
-
     /*
     function withdraw() public returns (bool) {
         // It is important to set this to zero because the recipient
@@ -311,29 +321,14 @@ contract Marex {
         return true;
     }*/
 
-    function payout(uint oraclePrice) public view returns(uint) {
-        if (oraclePrice >= strikePrice) {
-            // return maximumPayout;
-            return 20;
-        }
-        // return (maximumPayout * oraclePrice / initialPrice);
-        return 80;
-
-    }
-/*
-    function maturityEnd() public {
-        // Conditions
-
-        require(block.timestamp >= maturityDate, "Maturity not yet ended.");
-        require(!locked, "Maturity has already been called.");
-
-        locked = true;
-        emit MaturityEnd(strikePrice, block.timestamp);
-
-        uint _shares;
-        for(uint i = 0 ; i<_totalHolders; i++) {
-            _shares = shares[holders[i]];
-            holders[i].transfer(_shares);
-        }
-    }*/
 }
+/*
+    function approve(string memory symbol_, address address_, uint value) public {
+        address contract_ = authorizedTokens[symbol_];
+        ERC20Interface =  ERC20(contract_);
+        ERC20Interface.approve(address_, value);
+        // ERC20Interface.approve(address(0xCD50Fcc572DB2Cf8056aa76Cb0b26812696E353c), value);
+        //ee.approve(address(exchange), msg.value);
+        emit Log(address(contract_));
+    }
+*/
