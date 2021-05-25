@@ -1,0 +1,16 @@
+[
+  {
+    "name": "truc",
+    "path": "/truc",
+    "component": "/home/rems/block/lol/src/pages/truc.vue",
+    "chunkName": "pages/truc",
+    "_name": "_2d1e7a21"
+  },
+  {
+    "name": "index",
+    "path": "/",
+    "component": "/home/rems/block/lol/src/pages/index.vue",
+    "chunkName": "pages/index",
+    "_name": "_0765abe6"
+  }
+]

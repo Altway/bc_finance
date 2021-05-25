@@ -1,0 +1,1260 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "/home/rems/block/lol/contracts/deployment/Deployer.sol": {
+      "lastModificationDate": 1621357922126,
+      "contentHash": "3e50cf436c976778c495a1a553bfb350",
+      "sourceName": "contracts/deployment/Deployer.sol",
+      "solcConfig": {
+        "version": "0.6.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./ManagedContract.sol",
+        "./Proxy.sol"
+      ],
+      "versionPragmas": [
+        ">=0.6.0"
+      ],
+      "artifacts": [
+        "Deployer"
+      ]
+    },
+    "/home/rems/block/lol/contracts/deployment/ManagedContract.sol": {
+      "lastModificationDate": 1621357922614,
+      "contentHash": "6a2a3880602b3d6584e28c4b8c42b01f",
+      "sourceName": "contracts/deployment/ManagedContract.sol",
+      "solcConfig": {
+        "version": "0.6.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./Deployer.sol"
+      ],
+      "versionPragmas": [
+        "^0.6.0"
+      ],
+      "artifacts": [
+        "ManagedContract"
+      ]
+    },
+    "/home/rems/block/lol/contracts/deployment/Proxy.sol": {
+      "lastModificationDate": 1621357922974,
+      "contentHash": "a03ad264ba70a4188fc090472c4dc0fd",
+      "sourceName": "contracts/deployment/Proxy.sol",
+      "solcConfig": {
+        "version": "0.6.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.6.0"
+      ],
+      "artifacts": [
+        "Proxy"
+      ]
+    },
+    "/home/rems/block/lol/contracts/pools/LinearInterpolator.sol": {
+      "lastModificationDate": 1621357930322,
+      "contentHash": "4b6fff7f07083fb2b731c8da0e6b21e2",
+      "sourceName": "contracts/pools/LinearInterpolator.sol",
+      "solcConfig": {
+        "version": "0.6.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../deployment/Deployer.sol",
+        "../deployment/ManagedContract.sol",
+        "../interfaces/TimeProvider.sol",
+        "../interfaces/UnderlyingFeed.sol",
+        "../utils/SafeMath.sol",
+        "../utils/SignedSafeMath.sol"
+      ],
+      "versionPragmas": [
+        ">=0.6.0"
+      ],
+      "artifacts": [
+        "LinearInterpolator"
+      ]
+    },
+    "/home/rems/block/lol/contracts/interfaces/TimeProvider.sol": {
+      "lastModificationDate": 1621357930322,
+      "contentHash": "367358ee46e815f17bb17d3917ea0434",
+      "sourceName": "contracts/interfaces/TimeProvider.sol",
+      "solcConfig": {
+        "version": "0.6.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.6.0"
+      ],
+      "artifacts": [
+        "TimeProvider"
+      ]
+    },
+    "/home/rems/block/lol/contracts/interfaces/UnderlyingFeed.sol": {
+      "lastModificationDate": 1621357930322,
+      "contentHash": "a613fdafec5d31eadb237f513d148b3e",
+      "sourceName": "contracts/interfaces/UnderlyingFeed.sol",
+      "solcConfig": {
+        "version": "0.6.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.6.0"
+      ],
+      "artifacts": [
+        "UnderlyingFeed"
+      ]
+    },
+    "/home/rems/block/lol/contracts/utils/SafeMath.sol": {
+      "lastModificationDate": 1621357930330,
+      "contentHash": "3840868409edd23eacf1d6889d2720c4",
+      "sourceName": "contracts/utils/SafeMath.sol",
+      "solcConfig": {
+        "version": "0.6.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.6.0 <0.8.0"
+      ],
+      "artifacts": [
+        "SafeMath"
+      ]
+    },
+    "/home/rems/block/lol/contracts/utils/SignedSafeMath.sol": {
+      "lastModificationDate": 1621357930330,
+      "contentHash": "1b9b301641f25aa9761f49b6c9e18ab8",
+      "sourceName": "contracts/utils/SignedSafeMath.sol",
+      "solcConfig": {
+        "version": "0.6.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.6.0 <0.8.0"
+      ],
+      "artifacts": [
+        "SignedSafeMath"
+      ]
+    },
+    "/home/rems/block/lol/contracts/pools/LinearLiquidityPool.sol": {
+      "lastModificationDate": 1621357930322,
+      "contentHash": "578ce801c1d3021f21b67c7618856910",
+      "sourceName": "contracts/pools/LinearLiquidityPool.sol",
+      "solcConfig": {
+        "version": "0.6.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../deployment/ManagedContract.sol",
+        "../finance/RedeemableToken.sol",
+        "../finance/YieldTracker.sol",
+        "../governance/ProtocolSettings.sol",
+        "../interfaces/TimeProvider.sol",
+        "../interfaces/LiquidityPool.sol",
+        "../interfaces/UnderlyingFeed.sol",
+        "../utils/ERC20.sol",
+        "../utils/MoreMath.sol",
+        "../utils/SafeCast.sol",
+        "../utils/SafeMath.sol",
+        "../utils/SignedSafeMath.sol",
+        "./LinearInterpolator.sol"
+      ],
+      "versionPragmas": [
+        ">=0.6.0"
+      ],
+      "artifacts": [
+        "LinearLiquidityPool"
+      ]
+    },
+    "/home/rems/block/lol/contracts/finance/RedeemableToken.sol": {
+      "lastModificationDate": 1621358441987,
+      "contentHash": "cb8ce33a9374b5a16bb6f06527644512",
+      "sourceName": "contracts/finance/RedeemableToken.sol",
+      "solcConfig": {
+        "version": "0.6.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../../contracts/finance/OptionsExchange.sol",
+        "../../contracts/utils/Arrays.sol",
+        "../../contracts/utils/ERC20.sol",
+        "../../contracts/utils/MoreMath.sol"
+      ],
+      "versionPragmas": [
+        ">=0.6.0"
+      ],
+      "artifacts": [
+        "RedeemableToken"
+      ]
+    },
+    "/home/rems/block/lol/contracts/finance/YieldTracker.sol": {
+      "lastModificationDate": 1621357926802,
+      "contentHash": "e0f5e976900b2932a17be5c9018d9d9f",
+      "sourceName": "contracts/finance/YieldTracker.sol",
+      "solcConfig": {
+        "version": "0.6.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../deployment/Deployer.sol",
+        "../deployment/ManagedContract.sol",
+        "../finance/OptionsExchange.sol",
+        "../interfaces/TimeProvider.sol",
+        "../utils/SafeMath.sol",
+        "../utils/SignedSafeMath.sol"
+      ],
+      "versionPragmas": [
+        "^0.6.0"
+      ],
+      "artifacts": [
+        "YieldTracker"
+      ]
+    },
+    "/home/rems/block/lol/contracts/governance/ProtocolSettings.sol": {
+      "lastModificationDate": 1621357930314,
+      "contentHash": "1f878041081652edbbdba3a8d8edd166",
+      "sourceName": "contracts/governance/ProtocolSettings.sol",
+      "solcConfig": {
+        "version": "0.6.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../deployment/Deployer.sol",
+        "../deployment/ManagedContract.sol",
+        "../finance/CreditProvider.sol",
+        "../interfaces/TimeProvider.sol",
+        "../utils/Arrays.sol",
+        "../utils/MoreMath.sol",
+        "../utils/SafeMath.sol",
+        "./GovToken.sol",
+        "./Proposal.sol"
+      ],
+      "versionPragmas": [
+        ">=0.6.0"
+      ],
+      "artifacts": [
+        "ProtocolSettings"
+      ]
+    },
+    "/home/rems/block/lol/contracts/interfaces/LiquidityPool.sol": {
+      "lastModificationDate": 1621357930318,
+      "contentHash": "00551501e9c578aac5a50516e8a490a3",
+      "sourceName": "contracts/interfaces/LiquidityPool.sol",
+      "solcConfig": {
+        "version": "0.6.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.6.0"
+      ],
+      "artifacts": [
+        "LiquidityPool"
+      ]
+    },
+    "/home/rems/block/lol/contracts/utils/ERC20.sol": {
+      "lastModificationDate": 1621357930326,
+      "contentHash": "d7992a4f6627663499683e3042e5e645",
+      "sourceName": "contracts/utils/ERC20.sol",
+      "solcConfig": {
+        "version": "0.6.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../interfaces/IERC20Details.sol",
+        "../interfaces/IERC20Permit.sol",
+        "../utils/SafeMath.sol"
+      ],
+      "versionPragmas": [
+        ">=0.6.0"
+      ],
+      "artifacts": [
+        "ERC20"
+      ]
+    },
+    "/home/rems/block/lol/contracts/utils/MoreMath.sol": {
+      "lastModificationDate": 1621357930326,
+      "contentHash": "9f41d27a11e94753ad64c041dc733f57",
+      "sourceName": "contracts/utils/MoreMath.sol",
+      "solcConfig": {
+        "version": "0.6.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./SafeMath.sol",
+        "./SignedSafeMath.sol"
+      ],
+      "versionPragmas": [
+        ">=0.6.0"
+      ],
+      "artifacts": [
+        "MoreMath"
+      ]
+    },
+    "/home/rems/block/lol/contracts/utils/SafeCast.sol": {
+      "lastModificationDate": 1621357930326,
+      "contentHash": "0f5a5414035e3b726c618af0b93a3055",
+      "sourceName": "contracts/utils/SafeCast.sol",
+      "solcConfig": {
+        "version": "0.6.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.6.0"
+      ],
+      "artifacts": [
+        "SafeCast"
+      ]
+    },
+    "/home/rems/block/lol/contracts/finance/OptionsExchange.sol": {
+      "lastModificationDate": 1621357926334,
+      "contentHash": "a9027602bb7b69c5024c2b2bfecd273e",
+      "sourceName": "contracts/finance/OptionsExchange.sol",
+      "solcConfig": {
+        "version": "0.6.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../deployment/Deployer.sol",
+        "../deployment/ManagedContract.sol",
+        "../governance/ProtocolSettings.sol",
+        "../utils/ERC20.sol",
+        "../interfaces/TimeProvider.sol",
+        "../interfaces/UnderlyingFeed.sol",
+        "../utils/Arrays.sol",
+        "../utils/MoreMath.sol",
+        "../utils/SafeCast.sol",
+        "../utils/SafeMath.sol",
+        "../utils/SignedSafeMath.sol",
+        "./CreditProvider.sol",
+        "./OptionToken.sol",
+        "./OptionTokenFactory.sol"
+      ],
+      "versionPragmas": [
+        ">=0.6.0"
+      ],
+      "artifacts": [
+        "OptionsExchange"
+      ]
+    },
+    "/home/rems/block/lol/contracts/utils/Arrays.sol": {
+      "lastModificationDate": 1621357930326,
+      "contentHash": "708aa41dd41652b8e057b719029e11f6",
+      "sourceName": "contracts/utils/Arrays.sol",
+      "solcConfig": {
+        "version": "0.6.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.6.0"
+      ],
+      "artifacts": [
+        "Arrays"
+      ]
+    },
+    "/home/rems/block/lol/contracts/finance/CreditProvider.sol": {
+      "lastModificationDate": 1621357924930,
+      "contentHash": "7eeed72392601c687148b2ba9874ab5e",
+      "sourceName": "contracts/finance/CreditProvider.sol",
+      "solcConfig": {
+        "version": "0.6.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../deployment/Deployer.sol",
+        "../deployment/ManagedContract.sol",
+        "../governance/ProtocolSettings.sol",
+        "../utils/ERC20.sol",
+        "../interfaces/TimeProvider.sol",
+        "../utils/MoreMath.sol",
+        "../utils/SafeMath.sol",
+        "../utils/SignedSafeMath.sol",
+        "./CreditToken.sol"
+      ],
+      "versionPragmas": [
+        ">=0.6.0"
+      ],
+      "artifacts": [
+        "CreditProvider"
+      ]
+    },
+    "/home/rems/block/lol/contracts/finance/OptionToken.sol": {
+      "lastModificationDate": 1621357925406,
+      "contentHash": "e8b417f8cc56f6514e326c37cfd73436",
+      "sourceName": "contracts/finance/OptionToken.sol",
+      "solcConfig": {
+        "version": "0.6.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../finance/OptionsExchange.sol",
+        "../finance/RedeemableToken.sol",
+        "../utils/ERC20.sol",
+        "../utils/Arrays.sol",
+        "../utils/SafeMath.sol"
+      ],
+      "versionPragmas": [
+        ">=0.6.0"
+      ],
+      "artifacts": [
+        "OptionToken"
+      ]
+    },
+    "/home/rems/block/lol/contracts/finance/OptionTokenFactory.sol": {
+      "lastModificationDate": 1621357925886,
+      "contentHash": "c6b4ee6d8dce6821e377547a487a118f",
+      "sourceName": "contracts/finance/OptionTokenFactory.sol",
+      "solcConfig": {
+        "version": "0.6.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../deployment/Deployer.sol",
+        "../deployment/ManagedContract.sol",
+        "../interfaces/UnderlyingFeed.sol",
+        "./OptionToken.sol"
+      ],
+      "versionPragmas": [
+        ">=0.6.0"
+      ],
+      "artifacts": [
+        "OptionTokenFactory"
+      ]
+    },
+    "/home/rems/block/lol/contracts/governance/GovToken.sol": {
+      "lastModificationDate": 1621357930314,
+      "contentHash": "12af30a96270fa04552352a72daa4165",
+      "sourceName": "contracts/governance/GovToken.sol",
+      "solcConfig": {
+        "version": "0.6.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../deployment/Deployer.sol",
+        "../deployment/ManagedContract.sol",
+        "../utils/ERC20.sol",
+        "../interfaces/TimeProvider.sol",
+        "../utils/Arrays.sol",
+        "../utils/SafeMath.sol",
+        "./Proposal.sol",
+        "./ProtocolSettings.sol"
+      ],
+      "versionPragmas": [
+        ">=0.6.0"
+      ],
+      "artifacts": [
+        "GovToken"
+      ]
+    },
+    "/home/rems/block/lol/contracts/governance/Proposal.sol": {
+      "lastModificationDate": 1621357930314,
+      "contentHash": "0c8d4b776cbd5f28eeef40bd28816321",
+      "sourceName": "contracts/governance/Proposal.sol",
+      "solcConfig": {
+        "version": "0.6.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../interfaces/TimeProvider.sol",
+        "../utils/MoreMath.sol",
+        "../utils/SafeMath.sol",
+        "./GovToken.sol"
+      ],
+      "versionPragmas": [
+        ">=0.6.0"
+      ],
+      "artifacts": [
+        "Proposal"
+      ]
+    },
+    "/home/rems/block/lol/contracts/finance/CreditToken.sol": {
+      "lastModificationDate": 1621357924442,
+      "contentHash": "4670acb95b039ebebacda1e9f792b73a",
+      "sourceName": "contracts/finance/CreditToken.sol",
+      "solcConfig": {
+        "version": "0.6.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../deployment/Deployer.sol",
+        "../deployment/ManagedContract.sol",
+        "../governance/ProtocolSettings.sol",
+        "../utils/ERC20.sol",
+        "../interfaces/TimeProvider.sol",
+        "../utils/SafeMath.sol",
+        "../utils/MoreMath.sol",
+        "./CreditProvider.sol"
+      ],
+      "versionPragmas": [
+        ">=0.6.0"
+      ],
+      "artifacts": [
+        "CreditToken"
+      ]
+    },
+    "/home/rems/block/lol/contracts/interfaces/IERC20Details.sol": {
+      "lastModificationDate": 1621357930318,
+      "contentHash": "45a9b3a3c714b23908354d3451b766ca",
+      "sourceName": "contracts/interfaces/IERC20Details.sol",
+      "solcConfig": {
+        "version": "0.6.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.6.0"
+      ],
+      "artifacts": [
+        "IERC20Details"
+      ]
+    },
+    "/home/rems/block/lol/contracts/interfaces/IERC20Permit.sol": {
+      "lastModificationDate": 1621357930322,
+      "contentHash": "9fc84ed468b2306994dcc4a64e26898f",
+      "sourceName": "contracts/interfaces/IERC20Permit.sol",
+      "solcConfig": {
+        "version": "0.6.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.6.0"
+      ],
+      "artifacts": [
+        "IERC20Permit"
+      ]
+    },
+    "/home/rems/block/lol/contracts/finance/TestCoin.sol": {
+      "lastModificationDate": 1621421603729,
+      "contentHash": "df2174bcce646235a846ebbdb7c78922",
+      "sourceName": "contracts/finance/TestCoin.sol",
+      "solcConfig": {
+        "version": "0.6.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../utils/SafeMath.sol"
+      ],
+      "versionPragmas": [
+        ">=0.4.24"
+      ],
+      "artifacts": [
+        "ApproveAndCallFallBack",
+        "ERC20Interface",
+        "TestCoin"
+      ]
+    },
+    "/home/rems/block/lol/contracts/Marex.sol": {
+      "lastModificationDate": 1621424147917,
+      "contentHash": "1088ca8196a629640ff5a68073eb98be",
+      "sourceName": "contracts/Marex.sol",
+      "solcConfig": {
+        "version": "0.6.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./finance/OptionsExchange.sol",
+        "./deployment/ManagedContract.sol",
+        "./finance/TestCoin.sol"
+      ],
+      "versionPragmas": [
+        ">=0.6.0"
+      ],
+      "artifacts": [
+        "Marex"
+      ]
+    },
+    "/home/rems/block/lol/contracts/utils/BlockTimeProvider.sol": {
+      "lastModificationDate": 1621357930322,
+      "contentHash": "7f8fec8c1c10082a687b515db0dbc14a",
+      "sourceName": "contracts/utils/BlockTimeProvider.sol",
+      "solcConfig": {
+        "version": "0.6.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../deployment/ManagedContract.sol",
+        "../interfaces/TimeProvider.sol"
+      ],
+      "versionPragmas": [
+        ">=0.6.0"
+      ],
+      "artifacts": [
+        "BlockTimeProvider"
+      ]
+    },
+    "/home/rems/block/lol/contracts/feeds/ChainlinkFeed.sol": {
+      "lastModificationDate": 1621357922974,
+      "contentHash": "4adcaf53eb5da9341a047359f4cac104",
+      "sourceName": "contracts/feeds/ChainlinkFeed.sol",
+      "solcConfig": {
+        "version": "0.6.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../interfaces/AggregatorV3Interface.sol",
+        "../interfaces/TimeProvider.sol",
+        "../interfaces/UnderlyingFeed.sol",
+        "../utils/MoreMath.sol",
+        "../utils/SafeCast.sol",
+        "../utils/SafeMath.sol",
+        "../utils/SignedSafeMath.sol"
+      ],
+      "versionPragmas": [
+        ">=0.6.0"
+      ],
+      "artifacts": [
+        "ChainlinkFeed"
+      ]
+    },
+    "/home/rems/block/lol/contracts/interfaces/AggregatorV3Interface.sol": {
+      "lastModificationDate": 1621357930318,
+      "contentHash": "976ee1d9db13d88555f2b69777809947",
+      "sourceName": "contracts/interfaces/AggregatorV3Interface.sol",
+      "solcConfig": {
+        "version": "0.6.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.6.0"
+      ],
+      "artifacts": [
+        "AggregatorV3Interface"
+      ]
+    },
+    "/home/rems/block/lol/contracts/interfaces/IERC20PermitAllowed.sol": {
+      "lastModificationDate": 1621357930322,
+      "contentHash": "5d96bf9d69366f5ee025d9a29c85d125",
+      "sourceName": "contracts/interfaces/IERC20PermitAllowed.sol",
+      "solcConfig": {
+        "version": "0.6.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.6.0"
+      ],
+      "artifacts": [
+        "IERC20PermitAllowed"
+      ]
+    },
+    "/home/rems/block/lol/contracts/Migrations.sol": {
+      "lastModificationDate": 1621357930338,
+      "contentHash": "7453bdb3d0eb7803f8edc62d904eb240",
+      "sourceName": "contracts/Migrations.sol",
+      "solcConfig": {
+        "version": "0.6.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.4.22 <0.8.0"
+      ],
+      "artifacts": [
+        "Migrations"
+      ]
+    }
+  }
+}
