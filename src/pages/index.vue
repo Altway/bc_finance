@@ -24,14 +24,15 @@
 					<button @click="mintToken">Mint Token</button>
 				</div>
 			</div>
+			<h2 class="paragraph-title">Add Admin/Client Address</h2>
 			<div class="row">
 				<div class="row">
-					Payout Ratio:
-					<input v-model="transientPayoutRatio" title="payoutRatio" />
-				</div>
-				<div class="row">
-					<button @click="setPayoutRatio">Set Payout Ratio</button>
-					<span style="margin-left: 10px">{{ payoutRatio }}</span>
+					Admin Address:
+					<input v-model="newAdminAddress" title="adminAddress" />
+					<button @click="addAdmin">Add New Admin</button>
+					Client Address:
+					<input v-model="newClientAddress" title="clientAddress" />
+					<button @click="addClient">Add New Client</button>
 				</div>
 			</div>
 			<div class="row">
@@ -113,10 +114,10 @@
 				</div>
 				<div class="row">
 					Notional Amount:
-					<input v-model="notionalAmount" title="collateralAmount" />
+					<input v-model="notionalAmount" title="notionalAmount" />
 				</div>
 				<div class="row">
-					<button @click="addNotional">Send Collateral</button>
+					<button @click="addNotional">Send Notional</button>
 				</div>
 				<div class="receipt-box">
 					Total Notional:
@@ -125,11 +126,47 @@
 			</div>
 			<h3 class="paragraph-title">SETTLEMENT</h3>
 			<div class="row">
+				to Approved Address (farmToken):
+				<input v-model="toApprovedAddress" title="toApprovedAddress" />
+				Amount of tokens Approved (farmToken)
+				<input v-model="tokenApprovedAmount" title="tokenApprovedAmount" />
+				<button @click="app">Approve {{ tokenApprovedAmount }} tokens</button>
+			</div>
+			<div class="row">
 				<button @click="settle">Settle</button>
 			</div>
 			<div class="receipt-box">
 				Settle Result:
 				<span style="color: green">{{ settleResult }}</span>
+			</div>
+
+			<div class="row">
+				Liquidity Withdraw Result:
+				<input
+					v-model="withdrawnLiquidityAmount"
+					title="withdrawnLiquidityAmount"
+				/>
+				<button @click="withdrawLiquidity">
+					Liquidity Withdraw {{ withdrawnLiquidityAmount }} tokens
+				</button>
+			</div>
+			<div class="receipt-box">
+				<span style="color: green">{{ withdrawnLiquidityResult }}</span>
+			</div>
+
+			<div class="row">
+				Notional Withdraw Result:
+				<input
+					v-model="withdrawnNotionalAmount"
+					title="withdrawnNotionalAmount"
+				/>
+				<button @click="withdrawNotional">
+					Notional Withdraw {{ withdrawnNotionalAmount }} tokens
+				</button>
+			</div>
+			<div class="receipt-box">
+				Notional Withdraw Result:
+				<span style="color: green">{{ withdrawnNotionalResult }}</span>
 			</div>
 		</div>
 	</section>
@@ -181,6 +218,14 @@ export default {
 			mintRecipientAddress: '',
 			mintTokenAmount: '',
 			settleResult: '',
+			withdrawAmount: 0,
+			approvedFarmTokenAmount: 0,
+			newAdminAddress: this.newAdminAddress,
+			newClientAddress: this.newClientAddress,
+			withdrawnLiquidityAmount: 0,
+			withdrawnNotionalAmount: 0,
+			withdrawnLiquidityResult: 0,
+			withdrawnNotionalResult: 0,
 		}
 	},
 	computed: {
@@ -206,16 +251,37 @@ export default {
 		}, 100);*/
 	},
 	methods: {
-		/*
-		async transferToken() {
-			await this.$store.dispatch('marex/tokenTransfer', {
-				from: this.myAddress,
-				to: this.recipientAddress,
-				symbol: this.TokenSym,
-				value: '00001',
-			})
-		},*/
 		async test() {},
+		async depositFarmToken() {
+			await this.$store.dispatch('marex/depositFarmToken', {
+				from: this.userAddress,
+				withdrawAmount: this.withdrawAmount,
+			})
+		},
+		async addAdmin() {
+			await this.$store.dispatch('marex/addAdmin', {
+				from: this.userAddress,
+				newAdminAddress: this.newAdminAddress,
+			})
+		},
+		async addClient() {
+			await this.$store.dispatch('marex/addClient', {
+				from: this.userAddress,
+				newClientAddress: this.newClientAddress,
+			})
+		},
+		async approveFarmToken() {
+			await this.$store.dispatch('marex/approveFarmToken', {
+				from: this.userAddress,
+				approvedFarmTokenAmount: this.approvedFarmTokenAmount,
+			})
+		},
+		async withdraw() {
+			await this.$store.dispatch('marex/withdraw', {
+				from: this.userAddress,
+				withdrawAmount: this.withdrawAmount,
+			})
+		},
 		async setPayoutRatio() {
 			this.payoutRatio = await this.$store.dispatch('marex/setPayoutRatio', {
 				from: this.userAddress,
@@ -268,6 +334,13 @@ export default {
 				mintTokenAmount: this.mintTokenAmount,
 			})
 		},
+		async app() {
+			await this.$store.dispatch('marex/app', {
+				from: this.userAddress,
+				toApproveAddress: this.approveAddress,
+				tokenApprovedAmount: this.tokenApprovedAmount,
+			})
+		},
 		async approveAddress() {
 			await this.$store.dispatch('marex/approve', {
 				from: this.userAddress,
@@ -283,11 +356,29 @@ export default {
 			})
 		},
 		async addNotional() {
-			this.totalNotional = await this.$store.dispatch('marex/addCollateral', {
+			this.totalNotional = await this.$store.dispatch('marex/addNotional', {
 				from: this.userAddress,
-				notionalAmount: this.collateralAmount,
+				notionalAmount: this.notionalAmount,
 				tokenSymbol: this.tokenSymbol,
 			})
+		},
+		async withdrawLiquidity() {
+			this.withdrawLiquidityResult = await this.$store.dispatch(
+				'marex/withdrawLiquidity',
+				{
+					from: this.userAddress,
+					withdrawnLiquidityAmount: this.withdrawnLiquidityAmount,
+				}
+			)
+		},
+		async withdrawNotional() {
+			this.withdrawNotionalResult = await this.$store.dispatch(
+				'marex/withdrawNotional',
+				{
+					from: this.userAddress,
+					withdrawnNotionalAmount: this.withdrawnNotionalAmount,
+				}
+			)
 		},
 		async settle() {
 			this.settleResult = await this.$store.dispatch('marex/settle', {

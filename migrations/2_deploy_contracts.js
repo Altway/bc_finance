@@ -4,6 +4,7 @@ var test = false;
 // const BlockTimeProvider = artifacts.require("BlockTimeProvider");
 const Marex = artifacts.require("Marex");
 const TestCoin = artifacts.require("TestCoin");
+const FarmToken = artifacts.require("FarmToken");
 // const TimeProviderMock = artifacts.require("TimeProviderMock");
 // const EthFeedMock = artifacts.require("EthFeedMock");
 /*const ProtocolSettings = artifacts.require("ProtocolSettings");
@@ -27,7 +28,11 @@ module.exports = async function(deployer) {
     //await deployer.deploy(BlockTimeProvider);
   }*/
   await deployer.deploy(TestCoin);
-  await deployer.deploy(Marex);
+  const testCoin = await TestCoin.deployed();
+
+  await deployer.deploy(FarmToken, testCoin.address);
+  const farmToken = await FarmToken.deployed();
+  await deployer.deploy(Marex, farmToken.address, testCoin.address);
   /*await deployer.deploy(ProtocolSettings);
   await deployer.deploy(CreditToken);
   await deployer.deploy(GovToken);

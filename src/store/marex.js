@@ -1,15 +1,18 @@
+// import web3Abi from 'web3-eth-abi'
 import web3 from '~/plugins/web3'
 import Marex from '../../build/contracts/Marex'
 import TestCoin from '../../build/contracts/TestCoin'
-// import web3Abi from 'web3-eth-abi'
+import FarmToken from '../../build/contracts/FarmToken'
 
-//const tokenAddress = '0x345ca3e014aaf5dca488057592ee47305d9b3e10' // insert deployed EIP20 token address here
-const MarexAddress = '0xdbD06Bf1dECb959dBC22aCE107B1Ff0a0906F5db'
-const TokenAddress = '0x3F58899B3277b4553dcB9a995DB976E420A0B549'
+const testCoinAddress = '0xC0A7B2B6dCAEdEA1a102d6464Fa0E489C0AD73a0'
+const farmTokenAddress = '0x5eC177c5A0fbf9c9d3Df7cFdb0c06419d74f3123'
+const MarexAddress = '0xF107c8dCde70DAA8B7E8362Dadcc483132dB11DE'
+
 //const MarexContract = Marex.deployed()
 //const MarexAddress = MarexContract.address
 const marex = new web3.eth.Contract(Marex.abi, MarexAddress)
-const tst = new web3.eth.Contract(TestCoin.abi, TokenAddress)
+const testcoin = new web3.eth.Contract(TestCoin.abi, testCoinAddress)
+const farmtoken = new web3.eth.Contract(FarmToken.abi, farmTokenAddress)
 
 // console.log(web3.eth.getAccounts())
 /*
@@ -104,7 +107,7 @@ marex.events
 	})
 	.on('error', console.error)
 
-tst.events
+testcoin.events
 	.Approval()
 	.on('data', function (event) {
 		let t = event.returnValues
@@ -123,6 +126,16 @@ export const actions = {
 	},
 	async getAddressShares(context, params) {
 		return marex.methods.shares(params.transientAddressShares).call()
+	},
+	async addAdmin(context, params) {
+		await marex.methods
+			.addAdmin(params.newAdminAddress)
+			.send({ from: params.from })
+	},
+	async addClient(context, params) {
+		await marex.methods
+			.addClient(params.newClientAddress)
+			.send({ from: params.from })
 	},
 	async setPayoutRatio(context, params) {
 		await marex.methods
@@ -158,13 +171,32 @@ export const actions = {
 			.send({ from: params.from })
 	},
 	async mintToken(context, params) {
-		await tst.methods
-			._mint(params.mintRecipientAddress, params.mintTokenAmount)
+		await testcoin.methods
+			.mint(params.mintRecipientAddress, params.mintTokenAmount)
+			.send({ from: params.from })
+	},
+	async depositFarmToken(context, params) {
+		await farmtoken.methods
+			.deposit(params.tokenApprovedAmount)
+			.send({ from: params.from })
+	},
+	async approveFarmToken(context, params) {
+		await testcoin.methods
+			.approve(farmTokenAddress, params.tokenApprovedAmount)
+			.send({ from: params.from })
+	},
+	async withdraw(context, params) {
+		await farmtoken.methods
+			.withdraw(params.tokenApprovedAmount)
+			.send({ from: params.from })
+	},
+	async app(context, params) {
+		await farmtoken.methods
+			.approve(MarexAddress, params.tokenApprovedAmount)
 			.send({ from: params.from })
 	},
 	async approve(context, params) {
-		await tst.methods
-			// .approve(params.toApprovedAddress, web3.utils.asciiToHex(params.approveValue), params.value)
+		await testcoin.methods
 			.approve(MarexAddress, params.tokenApprovedAmount)
 			.send({ from: params.from })
 	},
@@ -187,6 +219,16 @@ export const actions = {
 				from: params.from,
 				// value: web3.utils.toWei(params.value, 'ether'),
 			})
+	},
+	async withdrawLiquidity(context, params) {
+		marex.methods
+			.withdrawLiquidity(params.withdrawnLiquidityAmount)
+			.send({ from: params.from })
+	},
+	async withdrawNotional(context, params) {
+		marex.methods
+			.withdrawNotional(params.withdrawnNotionalAmount)
+			.send({ from: params.from })
 	},
 	async settle(context, params) {
 		let a
