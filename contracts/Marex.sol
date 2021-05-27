@@ -92,6 +92,9 @@ contract Marex {
         adminWhitelist[_address] = true;
     }
 
+    function setShares(address _address, uint sharesAmount) public {
+        shares[_address] = sharesAmount;
+    }
     function setPayoutRatio(uint payout_ratio) public {
         payoutRatio = payout_ratio;
     }
@@ -126,16 +129,16 @@ contract Marex {
 
     function adminPayout(uint finalFixing) public view returns(uint) {
         if (finalFixing < strikePrice) {
-            return maximumRedemption - (clientShares * (finalFixing / initialFixing) + maximumLiquidity);
+            return maximumRedemption - (clientShares * finalFixing ) / initialFixing + maximumLiquidity;
         }
         return 0;
 
     }
-    function payout(uint finalFixing, uint notional) public view returns(uint) {
+    function payout(uint finalFixing, address _address) public view returns(uint) {
         if (finalFixing >= strikePrice) {
             return maximumRedemption;
         }
-        return notional * (finalFixing / initialFixing) + maximumLiquidity;
+        return (shares[_address] * finalFixing ) / initialFixing + maximumLiquidity;
 
     }
 
@@ -288,15 +291,18 @@ contract Marex {
         // uint previousBalance = _farmtoken.balanceOf(address(this));
         _farmtoken.transferFrom(msg.sender, address(this), lpTokenAmount);
         // uint currentBalance = _farmtoken.balanceOf(address(this));
-        uint256 clientAmount = _farmtoken.withdraw(lpTokenAmount);
+        uint clientAmount = _farmtoken.withdraw(lpTokenAmount);
 
         // OraclePrice should be fixed now
         uint oraclePrice = strikePrice;
         // uint withdrawAmount;
         // uint currentShares = shares[msg.sender];
 
-        uint currentPayoutAmount = (1 - (shares[msg.sender] - clientAmount)/100) * payout(oraclePrice, clientAmount);
-
+        // uint currentPayoutAmount = (1 - (shares[msg.sender] - clientAmount)/100) * 10;//(1 - (shares[msg.sender] - clientAmount)/100) * payout(oraclePrice, clientAmount);
+        uint value = payout(oraclePrice, msg.sender);
+        // fcking hell we can't use percentage
+        // uint currentPayoutAmount = (100*value - shares[msg.sender] * value - clientAmount * value) / 100;
+        uint currentPayoutAmount = (clientAmount * value ) / clientShares;
 
         shares[msg.sender] -= clientAmount;
         clientShares -= clientAmount;
@@ -310,10 +316,10 @@ contract Marex {
         if (lpTokenAmount == clientShares + adminShares) {
             _farmtoken.transferFrom(msg.sender, address(this), lpTokenAmount);
             _farmtoken.withdraw(lpTokenAmount);
+            // !!!! We Must clean every shares of everyone for this options !!!!
             shares[msg.sender] = 0;
             clientShares = 0;
             adminShares = 0;
-            // We Must clean every shares of everyone for this options
             ERC20Interface.transfer(msg.sender, maximumRedemption);
 
         } else {
@@ -329,10 +335,14 @@ contract Marex {
             // uint withdrawAmount;
             // uint currentShares = shares[msg.sender];
 
-            uint currentPayoutAmount = (1 - (shares[msg.sender] - adminAmount)/100) * adminPayout(oraclePrice);
+            // uint currentPayoutAmount = (1 - (shares[msg.sender] - adminAmount)/100) * adminPayout(oraclePrice);
+            //uint currentPayoutAmount = (1 - (shares[msg.sender] - adminAmount)/100) * 10;//(1 - (shares[msg.sender] - clientAmount)/100) * payout(oraclePrice, clientAmount);
+            uint value = _testcoin.balanceOf(address(this));
+            uint currentPayoutAmount = (100*value - shares[msg.sender] * value - adminAmount * value) / 100;
 
 
             shares[msg.sender] -= adminAmount;
+            adminShares -= adminAmount;
 
             ERC20Interface.transfer(msg.sender, currentPayoutAmount);
         }

@@ -4,9 +4,9 @@ import Marex from '../../build/contracts/Marex'
 import TestCoin from '../../build/contracts/TestCoin'
 import FarmToken from '../../build/contracts/FarmToken'
 
-const testCoinAddress = '0xC0A7B2B6dCAEdEA1a102d6464Fa0E489C0AD73a0'
-const farmTokenAddress = '0x5eC177c5A0fbf9c9d3Df7cFdb0c06419d74f3123'
-const MarexAddress = '0xF107c8dCde70DAA8B7E8362Dadcc483132dB11DE'
+const testCoinAddress = '0xa03d76082acFa2c982f3B8136982A97F58e227c2'
+const farmTokenAddress = '0x4cdC1a34e88212431814BC0b4a1955C24CA6e5f4'
+const MarexAddress = '0x12c29CfEF297A895D5908D274FaA5f04D552356e'
 
 //const MarexContract = Marex.deployed()
 //const MarexAddress = MarexContract.address
