@@ -4,9 +4,9 @@ import Marex from '../../build/contracts/Marex'
 import TestCoin from '../../build/contracts/TestCoin'
 import FarmToken from '../../build/contracts/FarmToken'
 
-const testCoinAddress = '0xa03d76082acFa2c982f3B8136982A97F58e227c2'
-const farmTokenAddress = '0x4cdC1a34e88212431814BC0b4a1955C24CA6e5f4'
-const MarexAddress = '0x12c29CfEF297A895D5908D274FaA5f04D552356e'
+const testCoinAddress = '0xEb385aD75A2628AfF71125C855EF31415c136511'
+const farmTokenAddress = '0xa615E638B2a80C624Cabb1622ac82D122CEc084a'
+const MarexAddress = '0xd7DC6BdBD082fa499cA0b973C3b73f0499f18419'
 
 //const MarexContract = Marex.deployed()
 //const MarexAddress = MarexContract.address
@@ -151,9 +151,15 @@ export const actions = {
 	},
 	async setInitialFixing(context, params) {
 		await marex.methods
-			.setInitialFixing(params.transientInitialPrice)
+			.setInitialFixing(params.transientInitialFixing)
 			.send({ from: params.from })
 		return marex.methods.initialFixing().call()
+	},
+	async setFinalFixing(context, params) {
+		await marex.methods
+			.setFinalFixing(params.transientFinalFixing)
+			.send({ from: params.from })
+		return marex.methods.finalFixing().call()
 	},
 	async addMaturity(context, params) {
 		await marex.methods

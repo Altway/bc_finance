@@ -30,7 +30,7 @@ module.exports = async function(deployer) {
   await deployer.deploy(TestCoin);
   const testCoin = await TestCoin.deployed();
 
-  await deployer.deploy(FarmToken, testCoin.address);
+  await deployer.deploy(FarmToken);
   const farmToken = await FarmToken.deployed();
   await deployer.deploy(Marex, farmToken.address, testCoin.address);
   /*await deployer.deploy(ProtocolSettings);

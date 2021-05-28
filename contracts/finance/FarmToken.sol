@@ -10,31 +10,27 @@ import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 
 contract FarmToken is ERC20 {
     using Address for address;
-    using SafeMath for uint256;
+    using SafeMath for uint;
     using SafeERC20 for IERC20;
 
     IERC20 public token;
 
-    constructor(address _token)
+    constructor()
         ERC20("FarmToken", "FRM")
     {
-        token = IERC20(_token);
     }
 
     function decimals() public view virtual override returns (uint8) {
         return 0;
     }
 
-    function balance() public view returns (uint256) {
+    function balance() public view returns (uint) {
         return token.balanceOf(address(this));
     }
 
-    function deposit(uint256 _amount) public returns(uint256){
+    function deposit(uint _amount) public returns(uint){
         // Amount must be greater than zero
         require(_amount > 0, "amount cannot be 0");
-
-        // Transfer MyToken to smart contract
-        token.safeTransferFrom(msg.sender, address(this), _amount);
 
         // Mint FarmToken to msg sender
         _mint(msg.sender, _amount);
@@ -42,12 +38,9 @@ contract FarmToken is ERC20 {
         return _amount;
     }
 
-    function withdraw(uint256 _amount) public returns(uint256){
+    function withdraw(uint _amount) public returns(uint){
         // Burn FarmTokens from msg sender
         _burn(msg.sender, _amount);
-
-        // Transfer MyTokens from this smart contract to msg sender
-        token.safeTransfer(msg.sender, _amount);
         
         return _amount;
     }

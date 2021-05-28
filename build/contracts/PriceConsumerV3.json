@@ -144,15 +144,15 @@
     "absolutePath": "/home/rems/block/lol/contracts/finance/Oracle.sol",
     "exportedSymbols": {
       "PriceConsumerV3": [
-        954
+        822
       ]
     },
-    "id": 955,
+    "id": 823,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 939,
+        "id": 807,
         "literals": [
           "solidity",
           "^",
@@ -168,45 +168,45 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 954,
+        "id": 822,
         "linearizedBaseContracts": [
-          954
+          822
         ],
         "name": "PriceConsumerV3",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": {
-              "id": 943,
+              "id": 811,
               "nodeType": "Block",
               "src": "359:97:3",
               "statements": []
             },
             "documentation": {
-              "id": 940,
+              "id": 808,
               "nodeType": "StructuredDocumentation",
               "src": "221:119:3",
               "text": " Network: Kovan\n Aggregator: ETH/USD\n Address: 0x9326BFA02ADD2366b30bacB125260Af641031331"
             },
-            "id": 944,
+            "id": 812,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [],
             "name": "",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 941,
+              "id": 809,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "356:2:3"
             },
             "returnParameters": {
-              "id": 942,
+              "id": 810,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "359:0:3"
             },
-            "scope": 954,
+            "scope": 822,
             "src": "345:111:3",
             "stateMutability": "nonpayable",
             "virtual": false,
@@ -214,14 +214,14 @@
           },
           {
             "body": {
-              "id": 952,
+              "id": 820,
               "nodeType": "Block",
               "src": "559:254:3",
               "statements": [
                 {
                   "expression": {
                     "hexValue": "30",
-                    "id": 950,
+                    "id": 818,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": true,
@@ -235,43 +235,43 @@
                     },
                     "value": "0"
                   },
-                  "functionReturnParameters": 949,
-                  "id": 951,
+                  "functionReturnParameters": 817,
+                  "id": 819,
                   "nodeType": "Return",
                   "src": "798:8:3"
                 }
               ]
             },
             "documentation": {
-              "id": 945,
+              "id": 813,
               "nodeType": "StructuredDocumentation",
               "src": "462:43:3",
               "text": " Returns the latest price"
             },
             "functionSelector": "8c3c9a55",
-            "id": 953,
+            "id": 821,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "getThePrice",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 946,
+              "id": 814,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "530:2:3"
             },
             "returnParameters": {
-              "id": 949,
+              "id": 817,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 948,
+                  "id": 816,
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 953,
+                  "scope": 821,
                   "src": "554:3:3",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -280,7 +280,7 @@
                     "typeString": "int256"
                   },
                   "typeName": {
-                    "id": 947,
+                    "id": 815,
                     "name": "int",
                     "nodeType": "ElementaryTypeName",
                     "src": "554:3:3",
@@ -294,14 +294,14 @@
               ],
               "src": "553:5:3"
             },
-            "scope": 954,
+            "scope": 822,
             "src": "510:303:3",
             "stateMutability": "view",
             "virtual": false,
             "visibility": "public"
           }
         ],
-        "scope": 955,
+        "scope": 823,
         "src": "139:676:3"
       }
     ],
@@ -311,15 +311,15 @@
     "absolutePath": "/home/rems/block/lol/contracts/finance/Oracle.sol",
     "exportedSymbols": {
       "PriceConsumerV3": [
-        954
+        822
       ]
     },
-    "id": 955,
+    "id": 823,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 939,
+        "id": 807,
         "literals": [
           "solidity",
           "^",
@@ -335,45 +335,45 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 954,
+        "id": 822,
         "linearizedBaseContracts": [
-          954
+          822
         ],
         "name": "PriceConsumerV3",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": {
-              "id": 943,
+              "id": 811,
               "nodeType": "Block",
               "src": "359:97:3",
               "statements": []
             },
             "documentation": {
-              "id": 940,
+              "id": 808,
               "nodeType": "StructuredDocumentation",
               "src": "221:119:3",
               "text": " Network: Kovan\n Aggregator: ETH/USD\n Address: 0x9326BFA02ADD2366b30bacB125260Af641031331"
             },
-            "id": 944,
+            "id": 812,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [],
             "name": "",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 941,
+              "id": 809,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "356:2:3"
             },
             "returnParameters": {
-              "id": 942,
+              "id": 810,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "359:0:3"
             },
-            "scope": 954,
+            "scope": 822,
             "src": "345:111:3",
             "stateMutability": "nonpayable",
             "virtual": false,
@@ -381,14 +381,14 @@
           },
           {
             "body": {
-              "id": 952,
+              "id": 820,
               "nodeType": "Block",
               "src": "559:254:3",
               "statements": [
                 {
                   "expression": {
                     "hexValue": "30",
-                    "id": 950,
+                    "id": 818,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": true,
@@ -402,43 +402,43 @@
                     },
                     "value": "0"
                   },
-                  "functionReturnParameters": 949,
-                  "id": 951,
+                  "functionReturnParameters": 817,
+                  "id": 819,
                   "nodeType": "Return",
                   "src": "798:8:3"
                 }
               ]
             },
             "documentation": {
-              "id": 945,
+              "id": 813,
               "nodeType": "StructuredDocumentation",
               "src": "462:43:3",
               "text": " Returns the latest price"
             },
             "functionSelector": "8c3c9a55",
-            "id": 953,
+            "id": 821,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "getThePrice",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 946,
+              "id": 814,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "530:2:3"
             },
             "returnParameters": {
-              "id": 949,
+              "id": 817,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 948,
+                  "id": 816,
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 953,
+                  "scope": 821,
                   "src": "554:3:3",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -447,7 +447,7 @@
                     "typeString": "int256"
                   },
                   "typeName": {
-                    "id": 947,
+                    "id": 815,
                     "name": "int",
                     "nodeType": "ElementaryTypeName",
                     "src": "554:3:3",
@@ -461,14 +461,14 @@
               ],
               "src": "553:5:3"
             },
-            "scope": 954,
+            "scope": 822,
             "src": "510:303:3",
             "stateMutability": "view",
             "virtual": false,
             "visibility": "public"
           }
         ],
-        "scope": 955,
+        "scope": 823,
         "src": "139:676:3"
       }
     ],
@@ -480,7 +480,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.0",
-  "updatedAt": "2021-05-27T21:21:11.339Z",
+  "updatedAt": "2021-05-28T15:38:52.517Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

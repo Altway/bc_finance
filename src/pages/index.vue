@@ -53,6 +53,11 @@
 				<vue-slider v-model="transientStrikePrice"></vue-slider>
 				<button @click="setStrikePrice">Set Strike Price</button>
 			</div>
+			<div>
+				Final Fixing: {{ finalFixing }}
+				<vue-slider v-model="transientFinalFixing"></vue-slider>
+				<button @click="setFinalFixing">Set Final Fixing</button>
+			</div>
 			<div class="row">
 				<div class="row">
 					Add Maturity minutes:
@@ -197,6 +202,8 @@ export default {
 			transientPayoutRatio: 0,
 			initialFixing: 0,
 			transientInitialFixing: 0,
+			finalFixing: 0,
+			transientFinalFixing: 0,
 			strikePrice: 0,
 			transientStrikePrice: 0,
 			additionalMaturityMinute: 0,
@@ -299,9 +306,15 @@ export default {
 				'marex/setInitialFixing',
 				{
 					from: this.userAddress,
-					transientInitialFixing: this.transientInitialPrice,
+					transientInitialFixing: this.transientInitialFixing,
 				}
 			)
+		},
+		async setFinalFixing() {
+			this.finalFixing = await this.$store.dispatch('marex/setFinalFixing', {
+				from: this.userAddress,
+				transientFinalFixing: this.transientFinalFixing,
+			})
 		},
 		async addMaturity() {
 			this.maturityDate = await this.$store.dispatch('marex/addMaturity', {
