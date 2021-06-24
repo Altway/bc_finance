@@ -1,12 +1,12 @@
 // import web3Abi from 'web3-eth-abi'
 import web3 from '~/plugins/web3'
 import Marex from '../../build/contracts/Marex'
-import TestCoin from '../../build/contracts/TestCoin'
-import FarmToken from '../../build/contracts/FarmToken'
+import TestCoin from '../../build/contracts/MarexCoin'
+import FarmToken from '../../build/contracts/DecentralizedNote'
 
-const testCoinAddress = '0xEb385aD75A2628AfF71125C855EF31415c136511'
-const farmTokenAddress = '0xa615E638B2a80C624Cabb1622ac82D122CEc084a'
-const MarexAddress = '0xd7DC6BdBD082fa499cA0b973C3b73f0499f18419'
+const testCoinAddress = '0x681ba4924b15A7a2021a506C1B5Fe94f14928da3'
+const farmTokenAddress = '0xa9B59dCb9e0480DBf4be17CB80E976db9ABE3EF8'
+const MarexAddress = '0x5Ff01860Ff42BD1dA9Bc8bC9E5976F5D4316B27c'
 
 //const MarexContract = Marex.deployed()
 //const MarexAddress = MarexContract.address

@@ -12,7 +12,7 @@
 			<div class="row">
 				<button @click="test">Test</button>
 			</div>
-			<h2 class="paragraph-title">Mint TST TOKEN</h2>
+			<h2 class="paragraph-title">Mint MRX TOKEN</h2>
 			<div class="row">
 				<div class="row">
 					Mint Address:
@@ -131,9 +131,9 @@
 			</div>
 			<h3 class="paragraph-title">SETTLEMENT</h3>
 			<div class="row">
-				to Approved Address (farmToken):
+				to Approved Address (DecentralizedNote):
 				<input v-model="toApprovedAddress" title="toApprovedAddress" />
-				Amount of tokens Approved (farmToken)
+				Amount of tokens Approved (DecentralizedNote)
 				<input v-model="tokenApprovedAmount" title="tokenApprovedAmount" />
 				<button @click="app">Approve {{ tokenApprovedAmount }} tokens</button>
 			</div>
@@ -211,7 +211,7 @@ export default {
 			locked: false,
 			addressShares: 0,
 			transientAddressShares: 0,
-			addedTokenSymbol: 'TST',
+			addedTokenSymbol: 'MRX',
 			addedTokenAddress: '',
 			toApprovedAddress: '',
 			tokenApprovedAmount: 0,
@@ -219,7 +219,7 @@ export default {
 			liquidityAmount: 0,
 			totalNotional: 0,
 			notionalAmount: 0,
-			tokenSymbol: 'TST',
+			tokenSymbol: 'MRX',
 			amount: 0,
 			recipientAddress: '',
 			mintRecipientAddress: '',

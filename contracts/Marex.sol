@@ -8,8 +8,8 @@ pragma solidity >=0.8.0;
 // import "./deployment/ManagedContract.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import "./finance/FarmToken.sol";
-import "./finance/TestCoin.sol";
+import "./finance/DecentralizedNote.sol";
+import "./finance/MarexCoin.sol";
 
 
 // contract Marex is ManagedContract {
@@ -17,8 +17,8 @@ contract Marex {
     using SafeMath for uint;
 
     IERC20 public ERC20Interface;
-    FarmToken public _farmtoken;
-    TestCoin public _testcoin;
+    DecentralizedNote public _farmtoken;
+    MarexCoin public _testcoin;
 
     /*
     enum addressType{INVESTOR, LIQUIDITY}
@@ -27,9 +27,9 @@ contract Marex {
 
     // payoutRatio de 10%
     uint public payoutRatio = 10;
-    uint public initialFixing = 30;
-    uint public finalFixing = 10;
-    uint public strikePrice = 50;
+    uint public initialFixing = 40000;
+    uint public finalFixing = 26000;
+    uint public strikePrice = 30000;
 
     // Active le contract aujourd'hui
     uint public activationDate = block.timestamp;
@@ -51,7 +51,6 @@ contract Marex {
     // @TODO ajout/Retrait de whitelist
     mapping(address => bool) public clientWhitelist;
     mapping(address => bool) public adminWhitelist;
-
     uint public adminShares = 0;
     uint public clientShares = 0;
 
@@ -70,8 +69,8 @@ contract Marex {
     event MaturityEnd(uint event_uint, uint event_block);
 
     constructor(address farmTokenAddress, address testCoinAddress) {
-        _farmtoken = FarmToken(farmTokenAddress);
-        _testcoin = TestCoin(testCoinAddress);
+        _farmtoken = DecentralizedNote(farmTokenAddress);
+        _testcoin = MarexCoin(testCoinAddress);
         // _farmtoken.approve(farmTokenAddress, 1000000);
     }
     /*

@@ -1,5 +1,5 @@
-let testcoin = await TestCoin.deployed()
-let farmToken = await FarmToken.deployed()
+let marexcoin = await MarexCoin.deployed()
+let decentralizedNote = await DecentralizedNote.deployed()
 let marex = await Marex.deployed()
 let acc = await web3.eth.getAccounts()
 

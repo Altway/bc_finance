@@ -8,7 +8,7 @@ import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 
-contract FarmToken is ERC20 {
+contract DecentralizedNote is ERC20 {
     using Address for address;
     using SafeMath for uint;
     using SafeERC20 for IERC20;
@@ -16,7 +16,7 @@ contract FarmToken is ERC20 {
     IERC20 public token;
 
     constructor()
-        ERC20("FarmToken", "FRM")
+        ERC20("DecentralizedNote", "DEN")
     {
     }
 
